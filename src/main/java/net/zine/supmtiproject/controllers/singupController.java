@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import net.zine.supmtiproject.DAO.UserDao;
@@ -58,7 +59,12 @@ public class singupController {
             userDao.insertUser(userName.getText(), password.getText(), fullName.getText(), city.getText(), Integer.parseInt(age.getText()));
             errorLabel.setStyle("-fx-text-fill: green;");
             errorLabel.setText("user added");
-//            back(event);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText(null); // optional
+            alert.setContentText("Vous etes inscrit avec succées");
+            alert.showAndWait();
+            back(event);
         }
 
     }

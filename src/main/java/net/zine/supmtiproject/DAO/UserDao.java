@@ -1,6 +1,7 @@
 package net.zine.supmtiproject.DAO;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class UserDao {
 
     public UserDao() {
         try {
-            con = dbConnection.getConnection(); // méthode qui renvoie une connexion
+            con = dbConnection.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,6 +64,15 @@ public class UserDao {
             }
         }
     }
+
+    public int getclient(int idUser) throws SQLException {
+        String sql1 = "SELECT id_client FROM task_manager_db.client where id_personne = ?;";
+        preparedStatement = con.prepareStatement(sql1);
+        preparedStatement.setInt(1, idUser);
+        resultSet = preparedStatement.executeQuery();
+        return resultSet.getInt("id_client");
+    }
+
 
 
 }

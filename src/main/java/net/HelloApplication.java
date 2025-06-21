@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/net/zine/supmtiproject/loginForm.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 600, 530);
+        Scene scene = new Scene(fxmlLoader.load(), 603, 502);
         stage.setTitle("Task");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/net/zine/supmtiproject/images/team-building.png")));
         stage.setScene(scene);
