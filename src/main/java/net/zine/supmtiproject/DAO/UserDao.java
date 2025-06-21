@@ -66,12 +66,19 @@ public class UserDao {
     }
 
     public int getclient(int idUser) throws SQLException {
-        String sql1 = "SELECT id_client FROM task_manager_db.client where id_personne = ?;";
-        preparedStatement = con.prepareStatement(sql1);
-        preparedStatement.setInt(1, idUser);
+        String sql = "SELECT id_client FROM task_manager_db.client WHERE id_personne = 12;";
+        preparedStatement = con.prepareStatement(sql);
         resultSet = preparedStatement.executeQuery();
-        return resultSet.getInt("id_client");
+
+        if (resultSet.next()) {
+            return resultSet.getInt("id_client"); // return actual value
+        } else {
+            System.out.println("xxxxx");
+            return 0;
+
+        }
     }
+
 
 
 

@@ -18,6 +18,8 @@ public class ReservationController extends clientMainController {
     @FXML private ComboBox<String> timePicker;
     @FXML private TextArea reasonField;
     @FXML private Label infoLabel;
+    private int idclient =2;
+
     private rendezvousDao rendezvousDao = new rendezvousDao();
     private UserDao userDao = new UserDao();
 
@@ -69,7 +71,7 @@ public class ReservationController extends clientMainController {
             infoLabel.setText("ce temps est reserve");
         }
         else {
-            int idclient = userDao.getclient(id);
+
             rendezvousDao.insertrendezvous(idclient,selectedDate, selectedTime, reasonField.getText());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");

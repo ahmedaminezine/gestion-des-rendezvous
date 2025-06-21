@@ -9,8 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class clientMainController {
-    protected int id;
-    protected String username;
+    private int id;
+    private String username;
     @FXML
     private Label UserLabel;
     @FXML
@@ -21,11 +21,13 @@ public class clientMainController {
         this.username = username;
         UserLabel.setText(username);
 
+
     }
     public void gotoreservation(ActionEvent event) {
         try {
             AnchorPane view = FXMLLoader.load(getClass().getResource("/net/zine/supmtiproject/reservationForm.fxml"));
             MainPanel.getChildren().setAll(view);
+            System.out.println(id);
         } catch (IOException e) {
             e.printStackTrace();
         }
