@@ -13,9 +13,12 @@ module net.zine.supmtiproject {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;
+    requires com.fasterxml.jackson.annotation;
+    requires mysql.connector.j;
 
     opens net.zine.supmtiproject to javafx.fxml;
     opens net.zine.supmtiproject.controllers to javafx.fxml;
+    opens net.zine.supmtiproject.Model to javafx.base;
     exports net.zine.supmtiproject;
     exports net;
     opens net to javafx.fxml;

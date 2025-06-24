@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:controller="net.zine.supmtiproject.controllers.MesrendezvousController"
+            prefHeight="500" prefWidth="600" style="-fx-background-color: #F9F9F9;"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+    <Label layoutX="224.0" layoutY="31.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Mes rendez-vous" />
+
+    <TableView layoutX="29.0" layoutY="102.0" prefHeight="360.0" prefWidth="554.0" fx:id="TableRendezVous">
+        <columns>
+            <TableColumn prefWidth="111.2" text="Date" fx:id="dateColumn"/>
+            <TableColumn prefWidth="107.2" text="HEURE" fx:id="heureColumn"/>
+            <TableColumn prefWidth="222.4" text="MALADIE" fx:id="maladieColumn"/>
+            <TableColumn prefWidth="112.8" text="MEDCINE" fx:id="medcineClumn"/>
+        </columns>
+    </TableView>
+
+</AnchorPane>

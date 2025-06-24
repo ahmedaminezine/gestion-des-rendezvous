@@ -1,5 +1,7 @@
 package net.zine.supmtiproject.DAO;
 
+import com.mysql.cj.xdevapi.JsonString;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -65,21 +67,63 @@ public class UserDao {
         }
     }
 
-    public int getclient(int idUser) throws SQLException {
-        String sql = "SELECT id_client FROM task_manager_db.client WHERE id_personne = 12;";
-        preparedStatement = con.prepareStatement(sql);
-        resultSet = preparedStatement.executeQuery();
+    public int getClientId(int idUser) throws SQLException {
+        String sql = "SELECT id_client FROM task_manager_db.client WHERE id_personne = ?";
 
-        if (resultSet.next()) {
-            return resultSet.getInt("id_client"); // return actual value
-        } else {
-            System.out.println("xxxxx");
-            return 0;
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idUser);
 
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id_client");
+                } else {
+                    System.out.println(" No client found for id_personne = " + idUser);
+                    return 0;
+                }
+            }
         }
     }
 
+    public ResultSet getClientInfo(int idUser) throws SQLException {
+        String sql ="SELECT u.*, c.* FROM task_manager_db.users u JOIN task_manager_db.client c ON c.id_personne = u.id WHERE u.id = ?;";
+       PreparedStatement preparedStatement = con.prepareStatement(sql);
+       preparedStatement.setInt(1, idUser);
+       ResultSet resultSet = preparedStatement.executeQuery();
+       return resultSet;
+
+    }
 
 
+    public String getmedcineNameById(int idmedcine) throws SQLException {
+        String sql = "SELECT u.full_name FROM task_manager_db.redezvous r JOIN task_manager_db.medcine m ON m.id_medcine = r.id_medcine JOIN task_manager_db.users u ON u.id = m.id_pers WHERE r.id_medcine = ? limit 1;";
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idmedcine);
 
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("full_name");
+                } else {
+
+                    return null;
+                }
+            }
+        }
+    }
+
+    public void UpdateUser(int id, String UserName, String UserPassword, String FullName, String city, int age) throws SQLException {
+        String sql ="UPDATE `task_manager_db`.`users` SET `username` = ?, `password` = ?, `full_name` = ? WHERE (`id` = ?);";
+        preparedStatement = con.prepareStatement(sql);
+        preparedStatement.setString(1, UserName);
+        preparedStatement.setString(2, UserPassword);
+        preparedStatement.setString(3, FullName);
+        preparedStatement.setInt(4, id);
+        preparedStatement.executeUpdate();
+        sql = "UPDATE `task_manager_db`.`client` SET `age_client` = ?, `ville_client` = ? WHERE (`id_personne` = ?);";
+        preparedStatement = con.prepareStatement(sql);
+        preparedStatement.setInt(1, age);
+        preparedStatement.setString(2, city);
+        preparedStatement.setInt(3, id);
+        preparedStatement.executeUpdate();
+
+    }
 }

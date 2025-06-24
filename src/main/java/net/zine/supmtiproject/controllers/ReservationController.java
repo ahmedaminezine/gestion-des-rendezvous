@@ -11,23 +11,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReservationController extends clientMainController {
+public class ReservationController {
 
-    @FXML private TextField patientNameField;
     @FXML private DatePicker datePicker;
     @FXML private ComboBox<String> timePicker;
     @FXML private TextArea reasonField;
     @FXML private Label infoLabel;
-    private int idclient =2;
 
     private rendezvousDao rendezvousDao = new rendezvousDao();
     private UserDao userDao = new UserDao();
+    private  int idcl;
 
     private final List<String> allHours = Arrays.asList(
             "08:00", "09:00", "10:00", "11:00",
             "14:00", "15:00", "16:00", "17:00"
     );
-
+    public void idpersonne(int idpersonne) {
+        this.idcl = idpersonne;
+    }
     @FXML
     private void initialize() {
         datePicker.setOnAction(event -> updateAvailableHours());
@@ -35,7 +36,6 @@ public class ReservationController extends clientMainController {
 
     private void updateAvailableHours() {
         LocalDate selectedDate = datePicker.getValue();
-        if (selectedDate == null) return;
 
         List<String> reserved = getReservedHoursForDate(selectedDate);
 
@@ -45,17 +45,9 @@ public class ReservationController extends clientMainController {
 
         timePicker.getItems().clear();
         timePicker.getItems().addAll(available);
-
-        if (available.isEmpty()) {
-            infoLabel.setText("Aucune heure disponible pour cette date.");
-        } else {
-            infoLabel.setText("");
-        }
     }
 
-    // Simule les heures déjà prises pour une date
     private List<String> getReservedHoursForDate(LocalDate date) {
-        // À remplacer par une vraie requête base de données
         if (date.equals(LocalDate.now().plusDays(1))) {
             return List.of("10:00", "14:00", "15:00");
         }
@@ -64,9 +56,12 @@ public class ReservationController extends clientMainController {
 
     @FXML
     private void confirmAppointment() throws SQLException {
+        infoLabel.setText("");
         LocalDate selectedDate = datePicker.getValue();
         String selectedTime = timePicker.getValue();
         List<String> hours = rendezvousDao.invalidHoure(selectedDate);
+        System.out.println(hours);
+        int idclient = userDao.getClientId(idcl);
         if (hours.contains(selectedTime)) {
             infoLabel.setText("ce temps est reserve");
         }
@@ -75,9 +70,13 @@ public class ReservationController extends clientMainController {
             rendezvousDao.insertrendezvous(idclient,selectedDate, selectedTime, reasonField.getText());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
-            alert.setHeaderText(null); // optional
+            alert.setHeaderText(null);
             alert.setContentText("redez-vous reserve");
             alert.showAndWait();
+            datePicker.setValue(null);
+            timePicker.setValue(null);
+            reasonField.clear();
+
         }
 
     }

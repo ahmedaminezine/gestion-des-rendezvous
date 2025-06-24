@@ -48,14 +48,14 @@
                 <Menu mnemonicParsing="false" text="rendez-vous">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#gotoreservation" text="Prendre un rendez-vous" />
-                        <MenuItem mnemonicParsing="false" text="Mes rendez-vous" />
+                        <MenuItem mnemonicParsing="false" onAction="#gotoMesrondezVous" text="Mes rendez-vous" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Profile">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Modifier mon profile" />
-                        <MenuItem mnemonicParsing="false" text="déconnection" />
-                        <MenuItem mnemonicParsing="false" text="Quiter" />
+                    <MenuItem mnemonicParsing="false" onAction="#updateInfo" text="Modifier mon profile" />
+                        <MenuItem mnemonicParsing="false" onAction="#desconnected" text="déconnection" />
+                        <MenuItem mnemonicParsing="false" onAction="#quitApp" text="Quiter" />
                   </items>
                 </Menu>
               </menus>
