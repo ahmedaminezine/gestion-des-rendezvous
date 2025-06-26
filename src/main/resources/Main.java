@@ -30,14 +30,14 @@ public class Main extends Application {
             String name = nameTextField.getText();
             String date = datePicker.getValue() != null ? datePicker.getValue().toString() : "";
             String time = timeTextField.getText();
-
-            if (!name.isEmpty() && !date.isEmpty() && !time.isEmpty()) {
-                Appointment app = new Appointment(name, date, time);
-                manager.addAppointment(appt);
-                updateListeView();
-                nameField.clear();
-                timeField.clear();
-            }
+//
+//            if (!name.isEmpty() && !date.isEmpty() && !time.isEmpty()) {
+//                Appointment app = new Appointment(name, date, time);
+//                manager.addAppointment(appt);
+//                updateListeView();
+//                nameField.clear();
+//                timeField.clear();
+//            }
         });
 
     public static void main(String[] args) {

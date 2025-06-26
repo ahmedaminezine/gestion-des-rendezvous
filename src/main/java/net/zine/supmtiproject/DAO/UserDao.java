@@ -1,10 +1,6 @@
 package net.zine.supmtiproject.DAO;
 
-import com.mysql.cj.xdevapi.JsonString;
-
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public class UserDao {
@@ -76,6 +72,22 @@ public class UserDao {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return resultSet.getInt("id_client");
+                } else {
+                    System.out.println(" No client found for id_personne = " + idUser);
+                    return 0;
+                }
+            }
+        }
+    }
+    public int getMedcineId(int idUser) throws SQLException {
+        String sql = "SELECT id_medcine FROM task_manager_db.medcine WHERE id_pers = ?";
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idUser);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id_medcine");
                 } else {
                     System.out.println(" No client found for id_personne = " + idUser);
                     return 0;

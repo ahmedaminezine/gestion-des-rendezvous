@@ -87,6 +87,7 @@ CREATE TABLE `redezvous` (
   `id_client` int DEFAULT NULL,
   `id_medcine` int DEFAULT NULL,
   `date_rendezvous` date DEFAULT NULL,
+  `CompteRendu` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id_redezvous`),
   KEY `id_client_idx` (`id_client`),
   KEY `id_medcine_idx` (`id_medcine`),
@@ -101,7 +102,7 @@ CREATE TABLE `redezvous` (
 
 LOCK TABLES `redezvous` WRITE;
 /*!40000 ALTER TABLE `redezvous` DISABLE KEYS */;
-INSERT INTO `redezvous` VALUES (-1407476951,'09:00','FD',-2052381977,2,'2025-06-04'),(-1371321283,'15:00','JI',-2052381977,2,'2025-06-04');
+INSERT INTO `redezvous` VALUES (-1407476951,'09:00','FD',-2052381977,2,'2025-06-04','NEANT'),(-1371321283,'15:00','JI',-2052381977,2,'2025-06-04','NEANT');
 /*!40000 ALTER TABLE `redezvous` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-24  2:58:46
+-- Dump completed on 2025-06-27  1:03:34

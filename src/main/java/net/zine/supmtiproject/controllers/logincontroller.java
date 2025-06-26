@@ -34,18 +34,35 @@ public class logincontroller {
         UserDao userDao = new UserDao();
         ResultSet user = userDao.validateLogin(userNameText.getText(), passwordText.getText());
         if(user.next()){
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/net/zine/supmtiproject/Home.fxml"));
-                Parent root = fxmlLoader.load();
-                clientMainController controller = fxmlLoader.getController();
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-                controller.getuser(user.getInt("id"), user.getString("username"));
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(userDao.getMedcineId(user.getInt("id")) != 0){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/net/zine/supmtiproject/medecin.fxml"));
+                    Parent root = fxmlLoader.load();
+                    MedecinController controller = fxmlLoader.getController();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                    controller.initialize(user.getInt("id"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
+            else {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/net/zine/supmtiproject/Home.fxml"));
+                    Parent root = fxmlLoader.load();
+                    clientMainController controller = fxmlLoader.getController();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                    controller.getuser(user.getInt("id"), user.getString("username"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
         else {
             ErrorLabel.setStyle("-fx-text-fill: red;");
